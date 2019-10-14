@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Student</title>
+</head>
+<body>
+<h1>Student List</h1>
+<p>
+    <a href="/create-product"> Create new product</a>
+</p>
+<form>
+    Search by name product:
+    <input type="text" name="s">
+    <input type="submit" value="Search">
+</form>
+
+<div>
+    <a th:href="@{'/students'(page=${product.number - 1 })}" th:if="${product.hasPrevious()}">Previous</a>
+    <span th:text="${product.number + 1 }"></span>/<span th:text="${product.totalPages}"></span>
+    <a th:href="@{'/students'(page=${product.number + 1})}" th:if="${product.hasNext()}">Next</a>
+</div>
+
+<table border="1">
+    <tr>
+<!--          this.type = type;
+        this.prince = prince;
+        this.count = count;
+        this.date = date;
+        this.content = content;
+        this.name = name;-->
+        <th>Name</th>
+        <th>Type</th>
+        <th>Prince</th>
+        <th>Count</th>
+        <th>Date</th>
+        <th>Content</th>
+
+    </tr>
+    <th:block th:each="s : ${product}">
+        <tr>
+            <td th:text="${s.name}"></td>
+            <td th:text="${s.prince}"></td>
+            <td th:each="f : ${s.type}"><span th:text="${f}"></span></td>
+            <td th:text="${s.count}"></td>
+            <td th:text="${s.date}"></td>
+<!--            <td th:text="${s.content}"></td>-->
+
+            <td ><textarea th:text="${s.content}"></textarea></td>
+<!--            <td th:text="${s.lop.name}"></td>-->
+            <td><a th:href="@{/edit-product/__${s.id}__}">Edit</a>
+            <td><a th:href="@{/delete-product/__${s.id}__}">Delete</a></td>
+        </tr>
+    </th:block>
+</table>
+</body>
+</html>

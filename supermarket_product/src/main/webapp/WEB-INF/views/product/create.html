@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Create Product</h1>
+<p>
+    <a href="/products">List Product</a>
+</p>
+<th:block th:if="${mgs}">
+    <p th:text="${mgs}"></p>
+</th:block>
+
+<form action="/create-product" th:object="${product}" method="post">
+    <table>
+        <tr>
+            <td>Name</td>
+            <td><input type="text" th:field="*{name}"></td>
+            <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
+        </tr>
+        <tr>
+            <td>Type</td>
+            <td>
+                <ul style="list-style-type: none">
+                    <li th:each=" f : ${listType}">
+                        <input type="checkbox" th:field="*{type}" th:value="${f}">
+                        <label th:text="${f}"></label>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>Date</td>
+            <td><input type="text" th:field="*{date}"></td>
+        </tr>      <tr>
+            <td>Content</td>
+            <td><textarea th:width="300" th:field="*{content}"></textarea></td>
+        </tr>
+
+        <tr>
+            <td>Prince</td>
+            <td><input type="text" th:field="*{prince}"></td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Create"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
